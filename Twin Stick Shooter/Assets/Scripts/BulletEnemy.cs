@@ -6,7 +6,7 @@ public class BulletEnemy : MonoBehaviour
 {
     //Variables
     [SerializeField] float speed;
-    int damageIDo = 10;                              // Amount of damage it inflicts on player
+    int damageIDo = 15;                              // Amount of damage it inflicts on player
     GameManager manager;
     Rigidbody bulletRB;
 

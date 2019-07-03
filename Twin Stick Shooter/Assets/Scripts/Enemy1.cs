@@ -15,10 +15,12 @@ public class Enemy1 : MonoBehaviour
     int pointsIGive = 12;                        // points player recieves on killing this enemy 
     float gapBtwPhyDamage = 1.5f;                   // gap between meele attacks
     bool playertookDamage = false;               // Check if player has taken physical damage
+    int damageTaken = 15;                        // Damage taken when whit by player bullet
 
     // Variables related to bullets
     [SerializeField] GameObject bullet;
-    float bulletSpawnGap = 3;                    // Gap between bullet spawns
+    float spawnGap = 3;                          // Gap between bullet spawns
+    float bulletSpawnGap;                    
 
     // Managers and other objects used in this script
     GameManager manager;
@@ -48,8 +50,19 @@ public class Enemy1 : MonoBehaviour
         {
             manager.audioSource.PlayOneShot(manager.enemyBulletShot);
             Instantiate(bullet, transform.position, transform.rotation);
-            bulletSpawnGap = 3;
+            bulletSpawnGap = spawnGap;
         }
+
+        // Increasing bullet spawn speed with increase in player score
+        if (manager.score > 2000)
+        {
+            spawnGap = 1.2f;
+        }
+        else if (manager.score > 1250)
+        {
+            spawnGap = 1.5f;
+        }
+
 
         //Setting the gap berween meele attcks
         if (playertookDamage == true)
@@ -74,14 +87,14 @@ public class Enemy1 : MonoBehaviour
         if(other.tag == tagThatDamageEnemy)
         {
             //Reduce enemy health on collide with player bullets
-            if(enemyHealth > 10)
+            if(enemyHealth > damageTaken)
             {
-                enemyHealth = enemyHealth - 10;
+                enemyHealth = enemyHealth - damageTaken;
                 healthBar.value = enemyHealth;
                 Destroy(other.gameObject);
             }
             //Destroying enemy
-            else if(enemyHealth <= 10)
+            else if(enemyHealth <= damageTaken)
             {
                 Destroy(other.gameObject);
                 healthBar.value = enemyHealth;

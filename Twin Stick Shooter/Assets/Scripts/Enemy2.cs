@@ -15,12 +15,16 @@ public class Enemy2 : MonoBehaviour
     int pointsIGive = 14;                   // points player recieves on killing this enemy
     float gapBtwPhyDamage = 1.5f;                   // gap between meele attacks;
     bool playertookDamage = false;          // Check if player has taken physical damage
+    int damageTaken = 15;                        // Damage taken when whit by player bullet
 
     // Variables related to bullets
     [SerializeField] GameObject bullet;
-    float bulletSpawnGap1 = 4.4f;            // Gap between bullet spawns
-    float bulletSpawnGap2 = 4.7f;            // Gap between bullet spawns
-    float bulletSpawnGap3 = 5;               // Gap between bullet spawns
+    float spawnGap1 = 4.4f;            // Gap between bullet spawns
+    float spawnGap2 = 4.7f;            // Gap between bullet spawns
+    float spawnGap3 = 5;               // Gap between bullet spawns
+    float bulletSpawnGap1;            
+    float bulletSpawnGap2;            
+    float bulletSpawnGap3;               
 
     // Managers and other objects used in this script
     GameManager manager;
@@ -53,21 +57,29 @@ public class Enemy2 : MonoBehaviour
         {
             manager.audioSource.PlayOneShot(manager.enemyBulletShot);
             Instantiate(bullet, transform.position, transform.rotation);
-            bulletSpawnGap1 = 4.4f;
+            bulletSpawnGap1 = spawnGap1;
         }
         if (bulletSpawnGap2 <= 0)
         {
             manager.audioSource.PlayOneShot(manager.enemyBulletShot);
             Instantiate(bullet, transform.position, transform.rotation);
-            bulletSpawnGap2 = 4.7f;
+            bulletSpawnGap2 = spawnGap2;
         }
         if (bulletSpawnGap3 <= 0)
         {
             manager.audioSource.PlayOneShot(manager.enemyBulletShot);
             Instantiate(bullet, transform.position, transform.rotation);
-            bulletSpawnGap3 = 5;
-            bulletSpawnGap2 = 4.7f;
-            bulletSpawnGap1 = 4.4f;
+            bulletSpawnGap3 = spawnGap3;
+            bulletSpawnGap2 = spawnGap2;
+            bulletSpawnGap1 = spawnGap1;
+        }
+
+        // Increasing bullet spawn speed with increase in player score
+        if (manager.score > 2000)
+        {
+            spawnGap1 = 3;
+            spawnGap2 = 3.2f;
+            spawnGap3 = 3.5f;
         }
 
         //Setting the gap berween meele attacks
@@ -95,14 +107,14 @@ public class Enemy2 : MonoBehaviour
         if(other.tag == tagThatDamageEnemy)
         {
             //Reduce enemy health on collide
-            if(enemyHealth > 10)
+            if(enemyHealth > damageTaken)
             {
-                enemyHealth = enemyHealth - 10;
+                enemyHealth = enemyHealth - damageTaken;
                 healthBar.value = enemyHealth;
                 Destroy(other.gameObject);
             }
             //Destroying enemy
-            else if(enemyHealth <= 10)
+            else if(enemyHealth <= damageTaken)
             {
                 Destroy(other.gameObject);
                 healthBar.value = enemyHealth;

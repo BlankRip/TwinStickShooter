@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     //Variables
     [SerializeField] GameObject playerProjectile;             // The bullet for player
+    [SerializeField] GameObject enmeyTrackingBullet;          // The bullet that tracks the closest enemy
     [SerializeField] GameObject gun1;
     [SerializeField] GameObject gun2;
     [SerializeField] GameObject gun3;
@@ -120,7 +121,7 @@ public class Player : MonoBehaviour
                     if (bulletSpawnGap <= 0)
                     {
                         //manager.audioSource.PlayOneShot(manager.playerBulletShot);
-                        Instantiate(playerProjectile, barrelObject.transform.position, barrelObject.transform.rotation);
+                        Instantiate(enmeyTrackingBullet, barrelObject.transform.position, barrelObject.transform.rotation);
                         bulletSpawnGap = 0.5f;
                     }
                 }
@@ -200,7 +201,7 @@ public class Player : MonoBehaviour
                     if (bulletSpawnGap <= 0)
                     {
                         //manager.audioSource.PlayOneShot(manager.playerBulletShot);
-                        Instantiate(playerProjectile, barrelObject.transform.position, barrelObject.transform.rotation);
+                        Instantiate(enmeyTrackingBullet, barrelObject.transform.position, barrelObject.transform.rotation);
                         bulletSpawnGap = 0.5f;
                     }
                 }

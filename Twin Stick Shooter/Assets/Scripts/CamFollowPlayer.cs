@@ -5,7 +5,6 @@ using UnityEngine;
 public class CamFollowPlayer : MonoBehaviour
 {
     GameObject player;
-    [SerializeField] float smoothspeed = 0.125f;
 
     //Valuses of the postion of the camera needed to be added to the player postion to begun on start
     [SerializeField] Vector3 camOffSet;
@@ -20,8 +19,7 @@ public class CamFollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         Vector3 requiredSpot = player.transform.position + camOffSet;
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, requiredSpot, smoothspeed);
-        transform.position = smoothPosition;
+        transform.position = requiredSpot;
 
         transform.LookAt(player.transform);
     }

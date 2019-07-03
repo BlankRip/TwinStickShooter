@@ -96,7 +96,12 @@ public class SpawnManager : MonoBehaviour
                 }
 
                 spawnedNumber++;
-                if(manager.score > 1500)
+                if (manager.score > 2000)
+                {
+                    gapBtwEnemySpawn = 0.75f;
+                    enemyLimit = 45;
+                }
+                else if (manager.score > 1500)
                 {
                     gapBtwEnemySpawn = 1.5f;
                     enemyLimit = 40;

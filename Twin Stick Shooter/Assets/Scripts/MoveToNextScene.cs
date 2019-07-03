@@ -5,7 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MoveToNextScene : MonoBehaviour
 {
-   
+    AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = FindObjectOfType<AudioSource>();
+    }
+
     // Loads the next scene based on bulid index
     public void nextScene()
     {
@@ -15,6 +21,7 @@ public class MoveToNextScene : MonoBehaviour
     //Loads the menu scene
     public void backToMenu()
     {
+        Destroy(audioSource);
         SceneManager.LoadScene(0);
     }
 }

@@ -14,6 +14,7 @@ public class Enemy3 : MonoBehaviour
     int phyDamageIDo = 5;                      // damage he inflicts on meele
     int pointsIGive = 12;                     // points player recieves on killing this enemy
     float gapBtwPhyDamage = 1.5f;                 // gap between meele attacks;
+    int damageTaken = 15;                        // Damage taken when whit by player bullet
     bool playertookDamage = false;            // Check if player has taken physical damage
 
     // Managers and other objects used in this script
@@ -47,6 +48,17 @@ public class Enemy3 : MonoBehaviour
                 gapBtwPhyDamage = 1.5f;
             }
         }
+
+        // Increasing bullet spawn speed with increase in player score
+        if (manager.score > 2000)
+        {
+            speed = 10;
+            phyDamageIDo = 10;
+        }
+        else if (manager.score > 1250)
+        {
+            speed = 9;
+        }
     }
 
     //Moving the enemy forward
@@ -60,14 +72,14 @@ public class Enemy3 : MonoBehaviour
         if(other.tag == tagThatDamageEnemy)
         {
             //Reduce enemy health on collide
-            if(enemyHealth > 10)
+            if(enemyHealth > damageTaken)
             {
-                enemyHealth = enemyHealth - 10;
+                enemyHealth = enemyHealth - damageTaken;
                 healthSlider.value = enemyHealth;
                 Destroy(other.gameObject);
             }
             //Destroying enemy
-            else if(enemyHealth <= 10)
+            else if(enemyHealth <= damageTaken)
             {
                 Destroy(other.gameObject);
                 healthSlider.value = enemyHealth;
