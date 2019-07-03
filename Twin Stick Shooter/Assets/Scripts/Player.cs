@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        if (!usingController)
+        if (!usingController && !manager.pause)
         {
             //To move the player
             if (Input.GetKey(KeyCode.W))
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(usingController)
+        if(usingController && !manager.pause)
         {
             //To move player
             controllerInput = new Vector3(Input.GetAxisRaw("LHorizontal"), 0, Input.GetAxisRaw("LVertical"));
